@@ -3,8 +3,8 @@ from app.extensions import mysql,init_supabase
 
 from .config import Config
 
-from app.auth.routes import auth_bp
-from app.main.routes import main_bp
+from app.templates.auth.routes import auth_bp
+from app.templates.main.routes import main_bp
 
 def create_app(config_class=Config):
     app = Flask(__name__)
