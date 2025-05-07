@@ -1,7 +1,7 @@
 function changeIframe(page) {
     var iframe = document.getElementById("changeIframe");
     if (iframe) {
-        iframe.src = page;
+        iframe.src = "/static/" + page;
     } else {
         console.error("Iframe not found!");
     }
@@ -50,43 +50,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
 });
 
-function logout() {
-    fetch("/logout", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then((response) => {
-            if (response.ok) {
-                window.location.href = "/dashboard";
-            }
-        })
-        .catch(error => console.error("Logout failed:", error));
-}
+// function logout() {
+//     fetch("/logout", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         }
+//     })
+//         .then((response) => {
+//             if (response.ok) {
+//                 window.location.href = "/dashboard";
+//             }
+//         })
+//         .catch(error => console.error("Logout failed:", error));
+// }
 
-fetch('/user', {
-    method: "GET"
-})
+// fetch('/user', {
+//     method: "GET"
+// })
 
-    .then(response => response.json())
-    .then(data => {
-        if (data.email && data.name) {
-            userInfo(data.email, data.name);
-        } else {
-            console.log("data not found")
-        }
-    })
-    .catch(error => console.error("Error fetching user data:", error));
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.email && data.name) {
+//             userInfo(data.email, data.name);
+//         } else {
+//             console.log("data not found")
+//         }
+//     })
+//     .catch(error => console.error("Error fetching user data:", error));
 
-function userInfo(email, username) {
-    let emailElement = document.getElementById("user_email");
-    let usernameElement = document.getElementById("user_name");
+// function userInfo(email, username) {
+//     let emailElement = document.getElementById("user_email");
+//     let usernameElement = document.getElementById("user_name");
 
-    if (emailElement && usernameElement) {
-        emailElement.innerHTML = email;
-        usernameElement.innerHTML = username;
-    } else {
-        console.error("User info elements not found.");
-    }
-}
+//     if (emailElement && usernameElement) {
+//         emailElement.innerHTML = email;
+//         usernameElement.innerHTML = username;
+//     } else {
+//         console.error("User info elements not found.");
+//     }
+// }

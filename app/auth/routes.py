@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, session, redirect, url_for, current_app, render_template
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.extensions import mysql,init_supabase
-from app.templates.auth.forms import RegisterForm, LoginForm
+from app.auth.forms import RegisterForm, LoginForm
 import re
 
 auth_bp = Blueprint("auth", __name__, url_prefix='/auth')
@@ -17,19 +17,24 @@ def register():
           password = register_form.password.data
           hashed_password = generate_password_hash(password)
 
-          data = [{
-               "userName" : username,
-               "userEmail": email,
-               "userPassword": hashed_password
-          }]
 
-          supabase = current_app.supabase
-          response = supabase.table('user').insert(data).execute()
+          connection = init_supabase(current_app)
+          try:
+               cursor = connection.cursor()
+               cursor.execute('INSERT INTO users ("userName", "userEmail", "userPassword") VALUES (%s, %s, %s)', (username,email,hashed_password))
+               connection.commit()
+               cursor.close()
+               connection.close()
+               print("User registered successfully")
+          except Exception as e:
+               print(f"Error registering user: {e}")
+               cursor.close()
+               connection.close()
 
-          if response.error:
-               print(f"Error in inserting data. {response.error}")
-          else:
-               print("data inserted successfully!")
+          # supabase = current_app.supabase
+          # response = supabase.table('user').insert(data).execute()
+
+          return render_template("main/web.html")
      return render_template("auth/Register.html", register_form=register_form,login_form=login_form)
 
 @auth_bp.route("/login", methods=["POST", "GET"])
@@ -49,6 +54,7 @@ def login():
                     response3 = supabase.table('user').select('userPassword').eq('userEmail', email).execute()
                     if check_password_hash(response3.data[0], password) :
                          print("password correct")
+                         return render_template("main/web.html")
                     else:
                          print("password incorrect")
                else:

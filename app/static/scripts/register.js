@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error: Body element not found.");
     }
 
-    document.getElementById("email").addEventListener("input", function () {
-        employeeCheck(this.value)
-    });
+    // document.getElementById("email").addEventListener("input", function () {
+    //     employeeCheck(this.value)
+    // });
 
     // Event listener for Show Login button
     document.getElementById("showLogin").addEventListener("click", function () {
@@ -72,145 +72,145 @@ function applyFormStyles() {
 }
 
 
-async function register(event) {
-    event.preventDefault();
+// async function register(event) {
+//     event.preventDefault();
 
-    let form = document.getElementById("registerform");
-    let formData = new FormData(form);
+//     let form = document.getElementById("registerform");
+//     let formData = new FormData(form);
 
-    let jsonObject = {};
-    formData.forEach((value, key) => {
-        jsonObject[key] = value;
-    })
+//     let jsonObject = {};
+//     formData.forEach((value, key) => {
+//         jsonObject[key] = value;
+//     })
 
 
-    try {
-        const response = await fetch("/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(jsonObject)
-        })
+//     try {
+//         const response = await fetch("/register", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify(jsonObject)
+//         })
 
-        const data = await response.json();
-        if (response.ok) {
-            console.log("User registered Successfully:", data);
-            form.reset();
-        } else {
-            if (data.error === "user already exists") {
-                alert("User already exists");
+//         const data = await response.json();
+//         if (response.ok) {
+//             console.log("User registered Successfully:", data);
+//             form.reset();
+//         } else {
+//             if (data.error === "user already exists") {
+//                 alert("User already exists");
 
-            } else if (data.error === "username must be at least 6 characters long") {
-                alert("Username must be at least 6 characters long");
-                form.querySelector("input[type='text']").value = "";
+//             } else if (data.error === "username must be at least 6 characters long") {
+//                 alert("Username must be at least 6 characters long");
+//                 form.querySelector("input[type='text']").value = "";
 
-            } else if (data.error === "email is invaid") {
-                alert("Email is invalid");
-                form.querySelector("input[type='email']").value = "";
+//             } else if (data.error === "email is invaid") {
+//                 alert("Email is invalid");
+//                 form.querySelector("input[id='reg_email']").value = "";
 
-            } else if (data.error === "password must be at least 8 characters long and contain at least one uppercase letter, one digit and one special character") {
-                alert("Password must be at least 8 characters long and contain at least one uppercase letter, one digit and one special character");
-                form.querySelectorAll("input[type='password']");
-                passwords.forEach(password => password.value = "");
+//             } else if (data.error === "password must be at least 8 characters long and contain at least one uppercase letter, one digit and one special character") {
+//                 alert("Password must be at least 8 characters long and contain at least one uppercase letter, one digit and one special character");
+//                 form.querySelectorAll("input[id='reg_password']");
+//                 passwords.forEach(password => password.value = "");
 
-            } else if (data.error === "passwords do not matched") {
-                alert("Passwords do not match");
-                form.querySelectorAll("input[type='password']");
-                passwords.forEach(password => password.value = "");
+//             } else if (data.error === "passwords do not matched") {
+//                 alert("Passwords do not match");
+//                 form.querySelectorAll("input[type='password']");
+//                 passwords.forEach(password => password.value = "");
 
-            } else if (data.error === "please agree to the terms and conditions") {
-                alert("Please agree to the terms and conditions");
+//             } else if (data.error === "please agree to the terms and conditions") {
+//                 alert("Please agree to the terms and conditions");
 
-                console.log("Error:", data.error);
-                alert("Error: " + data.error);
-            }
-        }
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
+//                 console.log("Error:", data.error);
+//                 alert("Error: " + data.error);
+//             }
+//         }
+//     } catch (error) {
+//         console.error("Error:", error);
+//     }
+// }
 
-async function login(event) {
-    event.preventDefault();
+// async function login(event) {
+//     event.preventDefault();
 
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    let conf_password_exi = document.getElementById("cof_password");
-    let conf_password = conf_password_exi ? conf_password_exi.value : null;
-    let form = document.getElementById("loginform");
+//     let email = document.getElementById("email").value;
+//     let password = document.getElementById("password").value;
+//     let conf_password_exi = document.getElementById("cof_password");
+//     let conf_password = conf_password_exi ? conf_password_exi.value : null;
+//     let form = document.getElementById("loginform");
 
-    if (email && password) {
+//     if (email && password) {
 
-        try {
-            const response = await fetch("/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: email,
-                    userpassword: password,
-                    confirmuserpassword: conf_password
-                })
-            })
+//         try {
+//             const response = await fetch("/login", {
+//                 method: "POST",
+//                 headers: {
+//                     "Content-Type": "application/json"
+//                 },
+//                 body: JSON.stringify({
+//                     username: email,
+//                     userpassword: password,
+//                     confirmuserpassword: conf_password
+//                 })
+//             })
 
-            const data = await response.json();
-            if (response.ok) {
-                console.log(data.message);
-                form.reset();
-                if (data.redirect) {
-                    window.location.href = data.redirect;
-                }
-            } else {
-                console.log("Error:", data.message);
-                alert("Error:" + data.message);
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    }
+//             const data = await response.json();
+//             if (response.ok) {
+//                 console.log(data.message);
+//                 form.reset();
+//                 if (data.redirect) {
+//                     window.location.href = data.redirect;
+//                 }
+//             } else {
+//                 console.log("Error:", data.message);
+//                 alert("Error:" + data.message);
+//             }
+//         } catch (error) {
+//             console.error("Error:", error);
+//         }
+//     }
 
-}
+// }
 
-function employeeCheck() {
-    let email = document.getElementById("email").value;
+// // function employeeCheck() {
+// //     let email = document.getElementById("email").value;
 
-    fetch("/employee_exists", {
-        method: "POST",
-        body: JSON.stringify({ email: email }),
-        headers: {
-            "Content-Type": "application/json"
-        },
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message === "only employee exists") {
-                if (!document.getElementById("cof_password")) {
-                    let newPassword = document.getElementById("password");
-                    newPassword.placeholder = "New Password";
+// //     fetch("/login", {
+// //         method: "POST",
+// //         body: JSON.stringify({ email: email }),
+// //         headers: {
+// //             "Content-Type": "application/json"
+// //         },
+// //     })
+// //         .then(response => response.json())
+// //         .then(data => {
+// //             if (data.message === "only employee exists") {
+// //                 if (!document.getElementById("cof_password")) {
+// //                     let newPassword = document.getElementById("password");
+// //                     newPassword.placeholder = "New Password";
 
-                    let confirmPassword = document.createElement("input");
-                    confirmPassword.type = "password";
-                    confirmPassword.id = "cof_password";
-                    confirmPassword.name = "cof_password";
-                    confirmPassword.placeholder = "Confirm Password";
-                    confirmPassword.required = true;
-                    confirmPassword.style.transition = "opacity 0.3s ease-in-out";
+// //                     let confirmPassword = document.createElement("input");
+// //                     confirmPassword.type = "password";
+// //                     confirmPassword.id = "cof_password";
+// //                     confirmPassword.name = "cof_password";
+// //                     confirmPassword.placeholder = "Confirm Password";
+// //                     confirmPassword.required = true;
+// //                     confirmPassword.style.transition = "opacity 0.3s ease-in-out";
 
-                    newPassword.insertAdjacentElement("afterend", confirmPassword);
+// //                     newPassword.insertAdjacentElement("afterend", confirmPassword);
 
-                    setTimeout(() => {
-                        confirmPassword.style.opacity = "1";
-                    }, 10);
-                }
-            } else if (data.message === "user already exists" || "employee not found") {
-                if (document.getElementById("cof_password")) {
-                    document.getElementById("cof_password").remove();
+// //                     setTimeout(() => {
+// //                         confirmPassword.style.opacity = "1";
+// //                     }, 10);
+// //                 }
+// //             } else if (data.message === "user already exists" || "employee not found") {
+// //                 if (document.getElementById("cof_password")) {
+// //                     document.getElementById("cof_password").remove();
 
-                    let password = document.getElementById("password");
-                    password.placeholder = "Password";
-                }
-            }
-        })
-}
+// //                     let password = document.getElementById("password");
+// //                     password.placeholder = "Password";
+// //                 }
+// //             }
+// //         })
+// // }

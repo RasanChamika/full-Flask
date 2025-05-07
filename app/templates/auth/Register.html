@@ -8,7 +8,7 @@
     <link type="image/x-icon"
         href="https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/icon.svg"
         rel="shortcut icon">
-    <link rel="stylesheet" href="../static/Styles/register.css">
+    <link rel="stylesheet" href="/static/styles/register.css">
 </head>
 
 <body id="body">
@@ -83,8 +83,8 @@
         <div class="container" id="container2" style="display: none;">
             <div class="form_container" id="login_form_container">
                 <h1 id="login_header">LOGIN</h1>
-                <form class="login-form" id="loginform" action="{{url_for('auth.login')}}" onsubmit="login(event)"
-                    autocomplete="on">
+                <form method="post" class="login-form" id="loginform" action="{{url_for('auth.login')}}"
+                    onsubmit="login(event)" autocomplete="on">
                     {{ login_form.csrf_token(id="csrf_token_login") }}
                     {{login_form.email(id="email", placeholder="Email", autocomplete="on")}}
                     {%for error in login_form.email.errors%}
@@ -123,7 +123,7 @@
             </div>
         </div>
     </div>
-    <script src="../static/Scripts/register.js"></script>
+    <script src="/static/Scripts/register.js"></script>
 </body>
 
 </html>
