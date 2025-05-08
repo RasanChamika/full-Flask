@@ -1,4 +1,4 @@
-fetch("/show_plan", {
+fetch("/main/show_plans", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -98,7 +98,7 @@ function updatePlans(data) {
         console.log(trimedSub);
         card.setAttribute("data-href", `${trimedSub}.html`);
         card.innerHTML = `
-        <img src = "/static/images/${plan.file}" class = "card-img-top" alt = "${plan.title}">
+        <img src = "${plan.file}" class = "card-img-top" alt = "${plan.title}">
         <h2>${plan.title}</h2>
         <p>${plan.subtitle}</p>
         <p>${plan.description}</p>

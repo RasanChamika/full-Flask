@@ -94,6 +94,11 @@
                     {%for error in login_form.password.errors%}
                     <small class="error">{{error}}</small>
                     {%endfor%}
+                    {{login_form.confirm_password(id="cof_password", placeholder="Confirm Password",
+                    required=True)}}
+                    {%for error in login_form.confirm_password.errors%}
+                    <small class="error">{{error}}</small>
+                    {%endfor%}
                     <label for="remember" class="checkbox_label">
                         {{login_form.remember(id="remember", type="checkbox")}}<span class="checkbox_text">Remember
                             Me</span>

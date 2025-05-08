@@ -10,13 +10,14 @@ def index():
 
 @main_bp.route("/content")
 def content():
- return render_template("content.html")
+ return render_template("web.html")
 
 @main_bp.route("/show_plans", methods=["POST"])
 def display_plans():
     try:
-        with open("/static/output.json", "r") as f:
+        with open("app/static/output.json", "r") as f:
             plans = json.load(f)
         return jsonify(plans), 200
-    except FileNotFoundError:
-        return jsonify({"error": "File not found"}), 404
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return jsonify({"error": "Files not found"}), 404

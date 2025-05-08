@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error: Body element not found.");
     }
 
-    // document.getElementById("email").addEventListener("input", function () {
-    //     employeeCheck(this.value)
-    // });
+    document.getElementById("email").addEventListener("input", function () {
+        employeeCheck(this.value)
+    });
 
     // Event listener for Show Login button
     document.getElementById("showLogin").addEventListener("click", function () {
@@ -68,6 +68,11 @@ function applyFormStyles() {
     let loginImage = document.getElementById("imglog");
     if (loginImage) {
         loginImage.style.borderRadius = "0 10px 10px 0"; // Login Image Border Radius
+    }
+
+    let logConfPassword = document.getElementById("cof_password");
+    if (logConfPassword) {
+        logConfPassword.style.display = "none"; // Hide Confirm Password for Login
     }
 }
 
@@ -173,44 +178,51 @@ function applyFormStyles() {
 
 // }
 
-// // function employeeCheck() {
-// //     let email = document.getElementById("email").value;
+function employeeCheck() {
 
-// //     fetch("/login", {
-// //         method: "POST",
-// //         body: JSON.stringify({ email: email }),
-// //         headers: {
-// //             "Content-Type": "application/json"
-// //         },
-// //     })
-// //         .then(response => response.json())
-// //         .then(data => {
-// //             if (data.message === "only employee exists") {
-// //                 if (!document.getElementById("cof_password")) {
-// //                     let newPassword = document.getElementById("password");
-// //                     newPassword.placeholder = "New Password";
+    let email = document.getElementById("email").value;
 
-// //                     let confirmPassword = document.createElement("input");
-// //                     confirmPassword.type = "password";
-// //                     confirmPassword.id = "cof_password";
-// //                     confirmPassword.name = "cof_password";
-// //                     confirmPassword.placeholder = "Confirm Password";
-// //                     confirmPassword.required = true;
-// //                     confirmPassword.style.transition = "opacity 0.3s ease-in-out";
+    fetch("/auth/employee_register", {
+        method: "POST",
+        body: JSON.stringify({
+            email: email
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === "Only employee exists.") {
+                if (document.getElementById("cof_password").style.display === "none") {
+                    let confirmPassword = document.getElementById("cof_password");
+                    let newPassword = document.getElementById("password");
+                    newPassword.placeholder = "New Password";
 
-// //                     newPassword.insertAdjacentElement("afterend", confirmPassword);
+                    confirmPassword.style.display = "block";
+                    confirmPassword.style.transition = "opacity 0.3s ease-out";
 
-// //                     setTimeout(() => {
-// //                         confirmPassword.style.opacity = "1";
-// //                     }, 10);
-// //                 }
-// //             } else if (data.message === "user already exists" || "employee not found") {
-// //                 if (document.getElementById("cof_password")) {
-// //                     document.getElementById("cof_password").remove();
 
-// //                     let password = document.getElementById("password");
-// //                     password.placeholder = "Password";
-// //                 }
-// //             }
-// //         })
-// // }
+                    // confirmPassword.type = "password";
+                    // confirmPassword.id = "cof_password";
+                    // confirmPassword.name = "cof_password";
+                    // confirmPassword.placeholder = "Confirm Password";
+                    // confirmPassword.required = true;
+                    // confirmPassword.style.transition = "opacity 0.3s ease-in-out";
+
+
+                    setTimeout(() => {
+                        confirmPassword.style.opacity = "1";
+                    }, 10);
+                }
+            } else if (data.message === "User already exists" || data.message === "Employee not exists.") {
+                if (document.getElementById("cof_password").style.display === "block") {
+                    let confirmPassword = document.getElementById("cof_password");
+                    confirmPassword.style.display = "none";
+
+                    let password = document.getElementById("password");
+                    password.placeholder = "Password";
+                }
+            }
+        })
+}
