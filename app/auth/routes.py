@@ -17,22 +17,31 @@ def register():
           password = register_form.password.data
           hashed_password = generate_password_hash(password)
 
+          data = [{"userName": username,
+                   "userEmail": email,
+                   "userPassword": hashed_password}]
 
-          connection = init_supabase(current_app)
-          try:
-               cursor = connection.cursor()
-               cursor.execute('INSERT INTO users ("userName", "userEmail", "userPassword") VALUES (%s, %s, %s)', (username,email,hashed_password))
-               connection.commit()
-               cursor.close()
-               connection.close()
-               print("User registered successfully")
-          except Exception as e:
-               print(f"Error registering user: {e}")
-               cursor.close()
-               connection.close()
 
-          # supabase = current_app.supabase
-          # response = supabase.table('user').insert(data).execute()
+          # connection = init_supabase(current_app)
+          # try:
+          #      cursor = connection.cursor()
+          #      cursor.execute('INSERT INTO users ("userName", "userEmail", "userPassword") VALUES (%s, %s, %s)', (username,email,hashed_password))
+          #      connection.commit()
+          #      cursor.close()
+          #      connection.close()
+          #      print("User registered successfully")
+          # except Exception as e:
+          #      print(f"Error registering user: {e}")
+          #      cursor.close()
+          #      connection.close()
+
+          supabase = current_app.supabase
+          if supabase:
+               print("connection success!")
+          else:
+               print("connection fails")
+          response = supabase.table("user").insert(data).execute()
+          print(response)
 
           return render_template("main/web.html")
      return render_template("auth/Register.html", register_form=register_form,login_form=login_form)

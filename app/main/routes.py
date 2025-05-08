@@ -14,9 +14,9 @@ def content():
 
 @main_bp.route("/show_plans", methods=["POST"])
 def display_plans():
- try:
-  with open("/static/output.json", "r") as f:
-   plans = json.load(f)
-  return jsonify(plans), 200
- except FileNotFoundError:
-  return jsonify({"error": "File not found"}), 404
+    try:
+        with open("/static/output.json", "r") as f:
+            plans = json.load(f)
+        return jsonify(plans), 200
+    except FileNotFoundError:
+        return jsonify({"error": "File not found"}), 404

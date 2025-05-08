@@ -1,4 +1,4 @@
-fetch("/app/main/routes/show_plan", {
+fetch("/show_plan", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
