@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans and Rates</title>
+    <link type="image/x-icon"
+        href="https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/icon.svg"
+        rel="shortcut icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/Styles/styles.css">
+</head>
+
+<body>
+    <div class="sidebar_container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/Logo-SLT.png"
+                    alt="Logo">
+                <hr class="upper-divider">
+            </div>
+            <div class="nav-links-container">
+                <ul class="nav-links">
+                    <li><a href="#" onclick="changeIframe('content.html')">Home</a></li>
+                    <li><a href="#" onclick="changeIframe('content.html')">Plans and Rates - Prepaid</a></li>
+                    <li><a href="#" onclick="changeIframe('content.html')">Plans and Rates - Postpaid</a></li>
+                    <li><a href="#" onclick="changeIframe('plan_form.html')">Add Packagers</a></li>
+                </ul>
+            </div>
+            <div class="footer">
+                <hr class="lower-divider">
+                <div class="menu">
+                    <h3 id="user_name"></h3>
+                    <h5 id="user_email"></h5>
+                    <ul>
+                        <li><img
+                                src="https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/menu_user.png"><a
+                                id="" href="#" onclick="true">Profile</a></li>
+                        <li><img
+                                src="https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/menu_logout.png"><a
+                                id="logout_click" href="#">Logout</a></li>
+                    </ul>
+
+                </div>
+
+                <img id="user"
+                    src="https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/user.svg"
+                    alt="user image">
+
+            </div>
+
+        </nav>
+
+    </div>
+    <div class="content">
+        <iframe id="changeIframe" src="../static/content.html" width="600" height="450" allowfullscreen=""
+            aria-hidden="false" tabindex="0"></iframe>
+    </div>
+    <script src="/static/Scripts/script.js"></script>
+
+</body>
+
+</html>

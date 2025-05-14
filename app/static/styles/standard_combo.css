@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    display: flex;
+    background-color: #fafafa;
+    font-family: 'Roboto';
+    color: rgb(0, 0, 0);
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+h1 {
+    font-size: 65px;
+    padding: 50px;
+}
+
+.package_toggle {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: center;
+    width: 50%;
+}
+
+.menu_parent {
+    position: relative;
+    padding: 10px;
+    border: 0 solid;
+    border-radius: 3px;
+    margin: 4px;
+    background-color: #d6d6d6;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* .menu_parent::after {
+    content: " ";
+    position: absolute;
+    border-radius: 2px;
+    width: 20px;
+    height: 20px;
+    bottom: -10px;
+    left: 43%;
+    rotate: 45deg;
+    background-color: #d6d6d6;
+    z-index: 1;
+} */
+
+a {
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #0B4361;
+}
+
+.menu_parent:hover,
+.menu_parent:focus {
+    background-color: #7e7e7e;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.menu_parent:hover::before {
+    background-color: #7e7e7e;
+    color: #fff;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+    /* No box-shadow here */
+}
+
+.menu_parent:hover a {
+    color: #fff;
+}
+
+img {
+    box-shadow: 0 0 10px #7e7e7e;
+}
+
+.grid1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+    padding: 10px;
+}
+
+table,
+tr,
+th,
+td {
+    border: 1px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+    padding: 8px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    background-color: #333;
+}
+
+td {
+    height: 30px;
+}
+
+.title_container {
+    display: flex;
+    justify-content: center;
+}
+
+.package_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.package_img img {
+    display: block;
+    width: 75%;
+    height: auto;
+    margin: 20px;
+}

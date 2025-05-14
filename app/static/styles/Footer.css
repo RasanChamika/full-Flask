@@ -1,0 +1,17 @@
+footer {
+    background-color: aquamarine;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.footer_nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+li {
+    display: inline;
+    margin: 5px;
+    cursor: pointer;
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link type="image/x-icon"
+        href="https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/icon.svg"
+        rel="shortcut icon">
+    <link rel="stylesheet" href="/static/styles/register.css">
+</head>
+
+<body id="body">
+    <div class="body_container" id="body_container">
+
+        <div class="container" id="container1">
+            <div class="register_image" id="register_image">
+                <img src="https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/Hello,.svg"
+                    id="imgreg" alt="Register">
+            </div>
+            <div class="form_container" id="register_form_container">
+                <h1 class="register_header">SIGN UP</h1>
+                <form class="register-form" id="registerform" action="{{url_for('auth.register')}}"
+                    onsubmit="register(event)" method="post" autocomplete="on">
+                    {{ register_form.hidden_tag()}}
+                    {{register_form.username(id="reg_username", placeholder="Username", autocomplete="on")}}
+                    {% for error in register_form.username.errors %}
+                    <small class="error">{{error}}</small>
+                    {%endfor%}
+
+                    {{register_form.email(id="reg_email", placeholder="Email", autocomplete="on")}}
+                    {%for error in register_form.email.errors%}
+                    <small class="error">{{error}}</small>
+                    {%endfor%}
+
+                    {{register_form.password(id="reg_password", placeholder="Password",
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}", required=True)}}
+                    {%for error in register_form.password.errors%}
+                    <small class="error">{{error}}</small>
+                    {%endfor%}
+
+                    {{register_form.confirm_password(id="reg_confirm_password", placeholder="Confirm Password",
+                    required=True)}}
+                    {%for error in register_form.confirm_password.errors%}
+                    <small class="error">{{error}}</small>
+                    {%endfor%}
+                    <label for="terms" class="checkbox_label">
+                        {{register_form.terms(id="terms", type="checkbox")}}<span class="checkbox_text">I agree to the
+                            terms
+                            and conditions</span>
+                    </label>
+                    {%for error in register_form.terms.errors%}
+                    <small class="error">{{error}}</small>
+                    {%endfor%}
+                    <div class="button_container1">
+                        <button type="button" class="btn" id="showLogin">Login</button>
+                        {{register_form.submit(class="btn_sub", id="reg_sub", value="Register")}}
+                    </div>
+
+                    <!-- <input type="text" id="reg_username" name="username" placeholder="Username" autocomplete="on"
+                        required>
+                    <input type="email" id="reg-email" name="email" placeholder="Email" autocomplete="on" required>
+                    <input type="password" id="reg_password" name="password" placeholder="Password"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" required>
+                    <input type="password" id="reg_confirm_password" name="confirm_password"
+                        placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"
+                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                        required>
+                    <label for="terms" class="checkbox_label">
+                        <input id="terms" type="checkbox" name="terms"><span class="checkbox_text">I agree to the terms
+                            and conditions</span>
+                    </label>
+                    <div class="button_container1">
+                        <button type="button" class="btn" id="showLogin">Login</button>
+                        <button type="submit" class="btn_sub">Register</button>
+                    </div> -->
+                </form>
+            </div>
+
+        </div>
+
+        <div class="container" id="container2" style="display: none;">
+            <div class="form_container" id="login_form_container">
+                <h1 id="login_header">LOGIN</h1>
+                <form method="post" class="login-form" id="loginform" action="{{url_for('auth.login')}}"
+                    onsubmit="login(event)" autocomplete="on">
+                    {{ login_form.csrf_token(id="csrf_token_login") }}
+                    {{login_form.email(id="email", placeholder="Email", autocomplete="on")}}
+                    {%for error in login_form.email.errors%}
+                    <small class="error">{{error}}</small>
+                    {%endfor%}
+                    {{login_form.password(id="password", placeholder="Password", required=True)}}
+                    {%for error in login_form.password.errors%}
+                    <small class="error">{{error}}</small>
+                    {%endfor%}
+                    {{login_form.confirm_password(id="cof_password", placeholder="Confirm Password")}}
+                    {%for error in login_form.confirm_password.errors%}
+                    <small class="error">{{error}}</small>
+                    {%endfor%}
+                    <label for="remember" class="checkbox_label">
+                        {{login_form.remember(id="remember", type="checkbox")}}<span class="checkbox_text">Remember
+                            Me</span>
+                    </label>
+                    {%for error in login_form.remember.errors%}
+                    <small class="error">{{error}}</small>
+                    {%endfor%}
+                    <div class="button_container2">
+                        <button type="button" class="btn" id="showRegister">Register</button>
+                        {{login_form.submit(class="btn_sub", id="log_sub", value="Login")}}
+                    </div>
+                    <!-- <input type="email" id="email" name="email" placeholder="Email" autocomplete="on" required>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <label for="remember" class="checkbox_label">
+                        <input id="remember" type="checkbox" name="remember"><span class="checkbox_text">Remember
+                            Me</span>
+                    </label>
+                    <div class="button_container2">
+                        <button type="button" class="btn" id="showRegister">Register</button>
+                        <button type="submit" class="btn_sub">Login</button>
+                    </div> -->
+                </form>
+            </div>
+            <div class="register_image" id="login_image">
+                <img src="https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/Hello,.svg"
+                    id="imglog" alt="Login">
+            </div>
+        </div>
+    </div>
+    <script src="/static/Scripts/register.js"></script>
+</body>
+
+</html>

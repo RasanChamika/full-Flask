@@ -1,0 +1,44 @@
+[
+    {
+        "title": "Plans and Rates - Prepaid",
+        "subtitle": "Standard Combo",
+        "description": "Get Super Fast with Anytime Comdo",
+        "file": "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/planimages//plan_1.jpg",
+        "price": "954/="
+    },
+    {
+        "title": "Plans and Rates - Prepaid",
+        "subtitle": "Hello AI",
+        "description": "Learn up - Glow up - Boss up",
+        "file": "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/planimages//plan_3.jpeg",
+        "price": "799/="
+    },
+    {
+        "title": "Plans and Rates - Prepaid",
+        "subtitle": "Facebook Combo",
+        "description": "Facebook chill with the Perfect deal!",
+        "file": "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/planimages//plan_2.jpg",
+        "price": "649/="
+    },
+    {
+        "title": "Plans and Rates - Prepaid",
+        "subtitle": "YouTube Combo",
+        "description": "Youtube chill with the Perfect deal!",
+        "file": "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/planimages//YTCHILLREV.jpeg",
+        "price": "647/="
+    },
+    {
+        "title": "Plans and Rates - Prepaid",
+        "subtitle": "Social Combo",
+        "description": "Snapcaht chill with the Perfect deal!",
+        "file": "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/planimages//SCL.jpg",
+        "price": "646/="
+    },
+    {
+        "title": "Plans and Rates - Prepaid",
+        "subtitle": "One Shot Ultra",
+        "description": "The one and only REAL UNLIMITED package",
+        "file": "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/planimages//ultraREV.png",
+        "price": "1989/="
+    }
+]

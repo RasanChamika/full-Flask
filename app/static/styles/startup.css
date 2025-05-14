@@ -1,0 +1,26 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+
+}
+
+.splash {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-image: radial-gradient(#a3cce2, #0b4361);
+}
+
+.splash img {
+    display: flex;
+    width: 100vh;
+    height: 100vh;
+    transition: transform 10s ease, opacity 1s ease;
+}
