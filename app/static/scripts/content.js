@@ -107,6 +107,7 @@ function updatePlans(data) {
         planContainer.appendChild(card);
     });
 
+    plansStore(data);
     const cards = document.querySelectorAll(".card");
     cards.forEach(card => {
         card.addEventListener("click", () => {
@@ -116,6 +117,47 @@ function updatePlans(data) {
             window.location.href = href;
 
         });
+
+
+    });
+
+
+}
+
+function generateCustomUUID(title) {
+    const prefix = title.replace(/\s+/g, '').toLowerCase().slice(0, 4);
+    const now = new Date();
+    const timestamp = now.getFullYear().toString() + (now.getMonth() + 1).toString().padStart(2, '0') + now.getDate().toString().padStart(2, '0');
+    const randomPart = Math.floor(Math.random() * 10000).toString(16);
+
+    return `${prefix}-${timestamp}-${randomPart}`;
+}
+
+function plansStore(data) {
+    data.forEach(plan => {
+        const planId = generateCustomUUID(plan.subtitle);
+        const package = {
+            id: planId,
+            title: plan.title,
+            subtitle: plan.subtitle,
+            description: plan.description,
+            file: plan.file,
+            price: plan.price
+        };
+        fetch("/save_plans", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(package)
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Plan saved successfully:", plan);
+                } else {
+                    console.error("Error saving plan:", response.statusText);
+                }
+            });
     });
 
 }

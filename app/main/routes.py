@@ -1,3 +1,4 @@
+from pydoc import plain
 from flask import Blueprint, request, jsonify, session, url_for, render_template,current_app, redirect
 from app.extensions import mysql,init_supabase
 from app.auth.forms import RegisterForm, LoginForm
@@ -41,6 +42,39 @@ def display_plans():
     except Exception as e:
         print(f"Error reading file: {e}")
         return jsonify({"error": "Files not found"}), 404
+    
+@main_bp.route("/save_plans", methods=["POST"])
+def save_plans():
+
+    supabase = current_app.supabase
+
+    try:
+        values = request.get_json()
+        if not values:
+            return jsonify({"error": "No data provided"}), 400
+        print(f"Received data: {values}")
+        try:
+            response = supabase.table("plans").select("*").eq('subtitle', values["subtitle"]).execute()
+            print(f"User registered successfully, response: {response}")
+            if response.data:
+                print("Data already exists")
+                return jsonify({"message": "Plans already exist"}), 200
+            else:
+                print("Data does not exist")
+                try:
+                    response = supabase.table("plans").insert(values).execute()
+                    print(f"User registered successfully, response: {response}")
+                    return jsonify({"message": "Plans saved successfully"}), 200
+                except Exception as e:
+                    print(f"Error inserting data: {e}")
+                    return jsonify({"error": "Failed to save plans"}), 500
+        except Exception as e:
+            print(f"Error checking data: {e}")
+            return jsonify({"error": "Failed to check data"}), 500
+    except Exception as e:
+        print(f"Error reading JSON: {e}")
+        return jsonify({"error": "Invalid JSON data"}), 400
+     
     
 @main_bp.route("/logout", methods=["POST"])
 def logout():
