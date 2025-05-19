@@ -3,6 +3,8 @@ from flask import Blueprint, request, jsonify, session, url_for, render_template
 from app.extensions import mysql,init_supabase
 from app.auth.forms import RegisterForm, LoginForm
 import json
+import pandas as pd
+import os
 
 main_bp = Blueprint("main", __name__)
 
@@ -32,6 +34,64 @@ def get_user():
 @main_bp.route("/content")
 def content():
  return render_template("web.html")
+
+@main_bp.route("/add_plan", methods=["POST","GET"])
+def add_plan():
+    plan_file = request.files.get("plan_file")
+    if plan_file:
+        df = pd.read_excel(plan_file)
+        print(f"DEBUG: received file = {plan_file} ({type(plan_file)})")
+        cleaned_data = {}
+        header = df.columns.tolist()
+        for col in header:
+            data = [val for val in df[col].tolist() if pd.notna(val)]
+            cleaned_data[col] = data
+            print(f"DEBUG: {col} = {data} ({type(data)})")
+        # first_row = df.iloc[0]  
+        # result = {
+        # "title": first_row["title"],
+        # "description": first_row["description"],
+        # "file": first_row["file"],
+        # "plans": []
+        # }
+
+        # for _, row in df.iterrows():
+        #     details_lines = str(row["details"]).split('\n')
+
+        #     # Skip if details are missing or not properly formatted
+        #     if len(details_lines) < 5:
+        #         print(f"Skipping row due to insufficient details: {row}")
+        #         continue
+        #     plan = {
+        #         "subtitle": row["subtitle"],
+        #         "price_with_tax": row["details"].split('\n')[0].split(':')[-1].strip(),
+        #         "voice_any_net": int(row["details"].split('\n')[1].split(':')[-1]),
+        #         "sms_any_net": int(row["details"].split('\n')[2].split(':')[-1]),
+        #         "any_time_data": row["details"].split('\n')[3].split(':')[-1].strip(),
+        #         "validity": row["details"].split('\n')[4].split(':')[-1].strip(),
+        #         "trc_reference_no": row["TRC Reference No"],
+        #         "commencing_date": str(row["Commencing Date"]),
+        #         "expiry_date": str(row["Expiry Date"])
+        #     }
+        #     result["plans"].append(plan)
+        if os.path.exists('app/static/image/output.json'):
+            with open('app/static/image/output.json', 'r') as f:
+                try:
+                    existing_data = json.load(f)
+                except json.JSONDecodeError:
+                    existing_data = []
+        else:
+            existing_data = []
+
+        combined_data = existing_data + [cleaned_data]
+        with open('app/static/image/output.json', 'w') as f:
+            json.dump(combined_data, f, indent=4)
+
+    else:
+        print("File failed to upload")
+        return jsonify({"error": "File upload failed"}), 400
+    return jsonify({"message": "File uploaded successfully"}), 200
+
 
 @main_bp.route("/show_plans", methods=["POST"])
 def display_plans():
