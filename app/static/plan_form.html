@@ -19,6 +19,17 @@
 
             <form class="add-plan-form" id="planform" enctype="multipart/form-data">
                 <h1>Plan Form</h1>
+                <div class="input_section">
+                    <input type="text" id="plan_name" name="plan_name" placeholder="Plan Title" required>
+                    <textarea id="plan_discription" name="plan_discription" rows="4" cols="50"
+                        placeholder="Enter your plan discription here..."></textarea>
+                    <input type="text" id="plan_image_url" name="plan_image_url" placeholder="Plan Image URL" required>
+                    <input type="text" id="sub_input" name="plan_subtitles[]" placeholder="Plan Subtitles" required>
+                    <div class="subtitle_container" id="subtitle_container">
+                    </div>
+                    <button type="button" id="add_subtitle">Add Subtitle</button>
+
+                </div>
                 <div class="select_section">
                     <div class="select_dtn" id="select_dtn">
                         <label class="selective_area" id="selective_area">

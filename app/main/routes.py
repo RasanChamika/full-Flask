@@ -47,46 +47,27 @@ def add_plan():
             data = [val for val in df[col].tolist() if pd.notna(val)]
             cleaned_data[col] = data
             print(f"DEBUG: {col} = {data} ({type(data)})")
-        # first_row = df.iloc[0]  
-        # result = {
-        # "title": first_row["title"],
-        # "description": first_row["description"],
-        # "file": first_row["file"],
-        # "plans": []
-        # }
+    
+        file_name = cleaned_data["title"][0].replace(" ", "_").lower()
 
-        # for _, row in df.iterrows():
-        #     details_lines = str(row["details"]).split('\n')
-
-        #     # Skip if details are missing or not properly formatted
-        #     if len(details_lines) < 5:
-        #         print(f"Skipping row due to insufficient details: {row}")
-        #         continue
-        #     plan = {
-        #         "subtitle": row["subtitle"],
-        #         "price_with_tax": row["details"].split('\n')[0].split(':')[-1].strip(),
-        #         "voice_any_net": int(row["details"].split('\n')[1].split(':')[-1]),
-        #         "sms_any_net": int(row["details"].split('\n')[2].split(':')[-1]),
-        #         "any_time_data": row["details"].split('\n')[3].split(':')[-1].strip(),
-        #         "validity": row["details"].split('\n')[4].split(':')[-1].strip(),
-        #         "trc_reference_no": row["TRC Reference No"],
-        #         "commencing_date": str(row["Commencing Date"]),
-        #         "expiry_date": str(row["Expiry Date"])
-        #     }
-        #     result["plans"].append(plan)
-        if os.path.exists('app/static/image/output.json'):
-            with open('app/static/image/output.json', 'r') as f:
-                try:
-                    existing_data = json.load(f)
-                except json.JSONDecodeError:
-                    existing_data = []
-        else:
-            existing_data = []
-
-        combined_data = existing_data + [cleaned_data]
-        with open('app/static/image/output.json', 'w') as f:
-            json.dump(combined_data, f, indent=4)
-
+        with open(f'app/static/image/{file_name}.json', 'w') as f:
+            json.dump(cleaned_data, f, indent=4)
+        
+        preData = {
+            "title": "Plans and Rates - Prepaid",
+            "subtitle": cleaned_data["title"][0],
+            "description": cleaned_data["description"][0],
+            "file": cleaned_data["file"][0],
+            "price": cleaned_data["price"][0]
+        }
+        with open('app/static/output.json', 'r') as f:
+            exeisting_data = json.load(f)
+            if preData not in exeisting_data:
+                exeisting_data.append(preData)
+                with open('app/static/output.json', 'w') as f:
+                    json.dump(exeisting_data, f, indent=4)
+            else:
+                print("Data already exists in the file")
     else:
         print("File failed to upload")
         return jsonify({"error": "File upload failed"}), 400
@@ -99,6 +80,16 @@ def display_plans():
         with open("app/static/output.json", "r") as f:
             plans = json.load(f)
         return jsonify(plans), 200
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return jsonify({"error": "Files not found"}), 404
+    
+@main_bp.route("/plan_details", methods=["GET"])
+def plan_details():
+    try:
+        with open("app/static/image/output.json", "r") as f:
+            data = json.load(f)
+        return jsonify({"plans": data}), 200
     except Exception as e:
         print(f"Error reading file: {e}")
         return jsonify({"error": "Files not found"}), 404

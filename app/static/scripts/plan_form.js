@@ -45,6 +45,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+const subSection = document.getElementById("subtitle_container");
+subSection.innerHTML = "";
+
+const addSub = document.getElementById("add_subtitle");
+addSub.addEventListener("click", () => {
+    const subTitle = document.createElement("input");
+    subTitle.type = "text";
+    subTitle.name = "plan_subtitles[]";
+    subTitle.style.backgroundImage = "url('https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/red-checkmark.svg')";
+    subTitle.style.backgroundRepeat = "no-repeat";
+    subTitle.style.backgroundPosition = "calc(100% - 5px) center";
+    subTitle.style.backgroundSize = "20px 20px";
+
+
+    subSection.appendChild(subTitle);
+});
+
+
 
 async function add_plan(event) {
     event.preventDefault();
@@ -71,7 +89,7 @@ async function add_plan(event) {
     try {
         const response = await fetch("/add_plan", {
             method: "POST",
-            body: formData
+            body: formData,
         });
 
         const data = await response.json();

@@ -40,5 +40,12 @@
         "description": "The one and only REAL UNLIMITED package",
         "file": "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/planimages//ultraREV.png",
         "price": "1989/="
+    },
+    {
+        "title": "Plans and Rates - Prepaid",
+        "subtitle": "Standard Combo",
+        "description": "Experience SLT-Mobitel\u2019s super-fast internet with the Anytime Combo packages during any time of the day. Plus, stay connected with the 500-minute Any Net Voice + SMS bundles, ensuring your calling and messaging needs are covered.",
+        "file": "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/planimages//plan_1.jpg",
+        "price": "Rs.555"
     }
 ]
