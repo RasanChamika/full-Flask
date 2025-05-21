@@ -50,16 +50,33 @@ subSection.innerHTML = "";
 
 const addSub = document.getElementById("add_subtitle");
 addSub.addEventListener("click", () => {
+    const inputWrapper = document.createElement("div");
+    inputWrapper.classList.add("input_wrapper");
+    inputWrapper.style.position = "relative";
+    inputWrapper.innerHTML = "";
+
     const subTitle = document.createElement("input");
     subTitle.type = "text";
     subTitle.name = "plan_subtitles[]";
-    subTitle.style.backgroundImage = "url('https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/red-checkmark.svg')";
-    subTitle.style.backgroundRepeat = "no-repeat";
-    subTitle.style.backgroundPosition = "calc(100% - 5px) center";
-    subTitle.style.backgroundSize = "20px 20px";
+    subTitle.placeholder = "Subtitle";
+    inputWrapper.appendChild(subTitle);
+
+    const removeIcon = document.createElement("img");
+    removeIcon.src = "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/close-line-svgrepo-com.svg";
+    removeIcon.alt = "Remove";
+    removeIcon.style.width = "20px";
+    removeIcon.style.height = "20px";
+    removeIcon.style.cursor = "pointer";
+    removeIcon.style.position = "absolute";
+    removeIcon.style.top = "17%";
+    removeIcon.style.right = "10px";
+    inputWrapper.appendChild(removeIcon);
 
 
-    subSection.appendChild(subTitle);
+    subSection.appendChild(inputWrapper);
+    removeIcon.addEventListener("click", () => {
+        subSection.removeChild(inputWrapper);
+    });
 });
 
 
