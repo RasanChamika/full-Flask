@@ -6,7 +6,6 @@ fetch("/show_plans", {
 })
     .then(response => response.json())
     .then(data => {
-        // Ensure data has a 'plans' key, and it's an array
         if (data) {
             planToggale(data);
         } else {
@@ -18,8 +17,11 @@ fetch("/show_plans", {
         console.error("Error fetching plans:", error);
     });
 
+let fileName = planToggale();
+
 fetch("/plan_details", {
     method: "GET",
+    body: fileName,
 })
     .then(response => response.json())
     .then(res => {
@@ -48,6 +50,7 @@ function planToggale(data) {
         `;
         planToggale.appendChild(menu);
     });
+    return plan.subtitle.trim().replace(" ", "_").toLowerCase();
 }
 
 
