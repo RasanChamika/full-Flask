@@ -124,18 +124,25 @@ function updatePlans(data) {
 
 }
 
-function generateCustomUUID(title) {
-    const prefix = title.replace(/\s+/g, '').toLowerCase().slice(0, 4);
-    const now = new Date();
-    const timestamp = now.getFullYear().toString() + (now.getMonth() + 1).toString().padStart(2, '0') + now.getDate().toString().padStart(2, '0');
-    const randomPart = Math.floor(Math.random() * 10000).toString(16);
+function generateCustomUUID(title, subtitle, price) {
+    const prefix1 = title.trim().split(/\s*[-\s]+\s*/).pop().toLowerCase();
+    const prefix2 = subtitle.replace(/\s+/g, '').toLowerCase().slice(0, 4);
+    const prefix3 = price.toString().replace(/\D/g, '');
 
-    return `${prefix}-${timestamp}-${randomPart}`;
+    return `${prefix1}-${prefix2}-${prefix3}`;
 }
 
+const savedPlansId = new Set(JSON.parse(localStorage.getItem("savedPlansId") || "[]"));
+
 function plansStore(data) {
+    console.log(savedPlansId);
     data.forEach(plan => {
-        const planId = generateCustomUUID(plan.subtitle);
+        const planId = generateCustomUUID(plan.title, plan.subtitle, plan.price);
+
+        if (savedPlansId.has(planId)) {
+            console.log("Plan already saved:", planId);
+            return;
+        }
         const package = {
             id: planId,
             title: plan.title,
@@ -153,6 +160,8 @@ function plansStore(data) {
         })
             .then(response => {
                 if (response.ok) {
+                    savedPlansId.add(planId);
+                    localStorage.setItem("savedPlansId", JSON.stringify([...savedPlansId]));
                     console.log("Plan saved successfully:", plan);
                 } else {
                     console.error("Error saving plan:", response.statusText);

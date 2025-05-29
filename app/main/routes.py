@@ -74,11 +74,12 @@ def add_plan():
     return jsonify({"message": "File uploaded successfully"}), 200
 
 
+with open("app/static/output.json", "r") as f:
+    plans = json.load(f)
+    
 @main_bp.route("/show_plans", methods=["POST"])
 def display_plans():
     try:
-        with open("app/static/output.json", "r") as f:
-            plans = json.load(f)
         return jsonify(plans), 200
     except Exception as e:
         print(f"Error reading file: {e}")
