@@ -178,9 +178,9 @@ function applyFormStyles() {
 
 // }
 
-function employeeCheck() {
+function employeeCheck(email) {
 
-    let email = document.getElementById("email").value;
+    /*    let email = document.getElementById("email").value; */
 
     fetch("/auth/employee_register", {
         method: "POST",
