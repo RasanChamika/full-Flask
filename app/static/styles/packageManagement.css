@@ -1,8 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
 body {
     background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
+}
+
+.svg1 {
+    background-image: url("https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/bg_pattern.png");
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    min-height: 100vh;
+    flex-shrink: 0;
+    overflow: hidden;
 }
 
 .container {
@@ -19,13 +31,115 @@ body {
 }
 
 .ManagementTitle h1 {
-    color: #000;
+    color: #ffffff;
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Source Sans Pro";
-    font-size: 96px;
-    font-style: normal;
-    font-weight: 400;
+    font-size: 70px;
     line-height: 20px;
     /* 20.833% */
     letter-spacing: -0.23px;
+}
+
+.ManagementTitle p {
+    min-width: 1080px;
+    height: 28px;
+    flex-shrink: 0;
+
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "Source Sans Pro";
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 41.667% */
+    letter-spacing: -0.23px;
+}
+
+.form_fill_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    max-width: 1200px;
+    padding: 5px;
+
+}
+
+.form_fill_container button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    top: 257px;
+    left: 100px;
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 34px;
+    background: #51B848;
+}
+
+.form_fill_container span {
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "Source Sans Pro";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 0px;
+    /* 55.556% */
+    letter-spacing: -0.23px;
+}
+
+.choise_devider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    width: 100%;
+    height: auto;
+}
+
+h3 {
+    padding: 10px;
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "Source Sans Pro";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 31.25% */
+    letter-spacing: -0.23px;
+}
+
+.drag_and_drop {
+    width: 1074px;
+    height: 212px;
+    flex-shrink: 0;
+}
+
+.drag_and_drop svg:hover {
+    transform: scale(1.01);
+    transition: transform 0.1s ease-in-out;
+}
+
+
+.drag_and_drop_label {
+    display: flex;
+    width: 156px;
+    height: 38px;
+    padding: 4px 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+
+    border-radius: 7px;
+    background: var(--Colors-Blue, #007AFF);
 }

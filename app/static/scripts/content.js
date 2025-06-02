@@ -19,20 +19,6 @@ fetch("/show_plans", {
     });
 
 
-
-// var img = [];
-
-// img[0] = ["../static/images/banner_1.png"];
-// img[1] = ["../static/images/5g-desktop.jpg"]
-// img[2] = ["../static/images/Awurudu2025_Web.jpg"]
-// img[3] = ["../static/images/DeviceOffer2in1_Desk.jpg"]
-// img[4] = ["../static/images/MAX PLUS SLI DESK.jpg"]
-// img[5] = ["../static/images/S25 ANDEsk.jpg"]
-// img[6] = ["../static/images/ts desk1600542.png"]
-// img[7] = ["../static/images/WEB BANNER DESKTOP MPLUS.jpg"]
-
-// var index = 1;
-
 function bannerFadeOut() {
     const image = document.querySelectorAll("#banner_img");
     let index = 0;

@@ -4,6 +4,16 @@ body {
     justify-content: center;
 }
 
+.svg1 {
+    background-image: url("https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/bg_pattern.png");
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    min-height: 100vh;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
 .container {
     display: flex;
     flex-direction: column;

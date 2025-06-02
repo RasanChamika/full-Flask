@@ -14,66 +14,70 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="form_container">
+    <div class="svg1">
 
-            <form class="add-plan-form" id="planform" enctype="multipart/form-data">
-                <h1>Plan Form</h1>
-                <div class="input_section">
-                    <input type="text" id="plan_name" name="plan_name" placeholder="Plan Title" required>
-                    <textarea id="plan_discription" name="plan_discription" rows="4" cols="50"
-                        placeholder="Enter your plan discription here..."></textarea>
-                    <input type="text" id="plan_image_url" name="plan_image_url" placeholder="Plan Image URL" required>
-                    <input type="text" id="sub_input" name="plan_subtitles[]" placeholder="Plan Subtitles" required>
-                    <div class="subtitle_container" id="subtitle_container">
-                    </div>
-                    <button type="button" id="add_subtitle">Add Subtitle</button>
+        <div class="container">
+            <div class="form_container">
 
-                </div>
-                <div class="select_section">
-                    <div class="select_dtn" id="select_dtn">
-                        <label class="selective_area" id="selective_area">
-                            <input type="checkbox" class="selective-checkbox" id="selective-checkbox">
-                        </label>
-                        <span class="btn_title">Select Title</span>
-                        <span class="btn_arrow">
-                            <i class="fa-solid fa-angle-down"></i>
-                        </span>
-                    </div>
-                    <div class="select_container">
-                        <ul class="selection_list" id="selection_list">
-                            <li class="selection_item">
-                                <input type="checkbox" id="plan_type1" name="role" value="Intern"
-                                    onchange="handleCheckbox(this)">
-                                <label for="plan_type1">Intern</label>
-                            </li>
-                            <li class="selection_item">
-                                <input type="checkbox" id="plan_type2" name="role" value="Tech Lead"
-                                    onchange="handleCheckbox(this)">
-                                <label for="plan_type2">Tech Lead</label>
-                            </li>
-                            <li class="selection_item">
-                                <input type="checkbox" id="plan_type3" name="role" value="architech"
-                                    onchange="handleCheckbox(this)">
-                                <label for="plan_type3">architech</label>
-                            </li>
-                            <li class="selection_item">
-                                <input type="checkbox" id="plan_type4" name="role" value="Senior"
-                                    onchange="handleCheckbox(this)">
-                                <label for="plan_type4">Senior</label>
-                            </li>
-                            <li class="selection_item">
-                                <input type="checkbox" id="plan_type5" name="role" value="Head"
-                                    onchange="handleCheckbox(this)">
-                                <label for="plan_type5">Head</label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <input type="file" id="plan_image" name="plan_file" required>
-                <button id="submitButton" type="submit">Submit</button>
+                <form class="add-plan-form" id="planform" enctype="multipart/form-data">
+                    <h1>Plan Form</h1>
+                    <div class="input_section">
+                        <input type="text" id="plan_name" name="plan_name" placeholder="Plan Title" required>
+                        <textarea id="plan_discription" name="plan_discription" rows="4" cols="50"
+                            placeholder="Enter your plan discription here..."></textarea>
+                        <input type="text" id="plan_image_url" name="plan_image_url" placeholder="Plan Image URL"
+                            required>
+                        <input type="text" id="sub_input" name="plan_subtitles[]" placeholder="Plan Subtitles" required>
+                        <div class="subtitle_container" id="subtitle_container">
+                        </div>
+                        <button type="button" id="add_subtitle">Add Subtitle</button>
 
-            </form>
+                    </div>
+                    <div class="select_section">
+                        <div class="select_dtn" id="select_dtn">
+                            <label class="selective_area" id="selective_area">
+                                <input type="checkbox" class="selective-checkbox" id="selective-checkbox">
+                            </label>
+                            <span class="btn_title">Select Title</span>
+                            <span class="btn_arrow">
+                                <i class="fa-solid fa-angle-down"></i>
+                            </span>
+                        </div>
+                        <div class="select_container">
+                            <ul class="selection_list" id="selection_list">
+                                <li class="selection_item">
+                                    <input type="checkbox" id="plan_type1" name="role" value="Intern"
+                                        onchange="handleCheckbox(this)">
+                                    <label for="plan_type1">Intern</label>
+                                </li>
+                                <li class="selection_item">
+                                    <input type="checkbox" id="plan_type2" name="role" value="Tech Lead"
+                                        onchange="handleCheckbox(this)">
+                                    <label for="plan_type2">Tech Lead</label>
+                                </li>
+                                <li class="selection_item">
+                                    <input type="checkbox" id="plan_type3" name="role" value="architech"
+                                        onchange="handleCheckbox(this)">
+                                    <label for="plan_type3">architech</label>
+                                </li>
+                                <li class="selection_item">
+                                    <input type="checkbox" id="plan_type4" name="role" value="Senior"
+                                        onchange="handleCheckbox(this)">
+                                    <label for="plan_type4">Senior</label>
+                                </li>
+                                <li class="selection_item">
+                                    <input type="checkbox" id="plan_type5" name="role" value="Head"
+                                        onchange="handleCheckbox(this)">
+                                    <label for="plan_type5">Head</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input type="file" id="plan_image" name="plan_file" required>
+                    <button id="submitButton" type="submit">Submit</button>
+
+                </form>
+            </div>
         </div>
     </div>
     <script src="../static/Scripts/plan_form.js"></script>
