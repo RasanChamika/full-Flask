@@ -19,8 +19,11 @@ body {
 
 .container {
     display: flex;
+    flex-wrap: nowrap;
     flex-direction: column;
     align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .ManagementTitle {
@@ -41,7 +44,7 @@ body {
 
 .ManagementTitle p {
     min-width: 1080px;
-    height: 28px;
+    height: 18px;
     flex-shrink: 0;
 
     color: #000;
@@ -51,7 +54,6 @@ body {
     font-style: normal;
     font-weight: 400;
     line-height: 20px;
-    /* 41.667% */
     letter-spacing: -0.23px;
 }
 
@@ -91,7 +93,7 @@ body {
     font-style: normal;
     font-weight: 400;
     line-height: 0px;
-    /* 55.556% */
+    gap: 5px;
     letter-spacing: -0.23px;
 }
 
@@ -102,7 +104,6 @@ body {
     justify-content: center;
     margin: 5px;
     width: 100%;
-    height: auto;
 }
 
 h3 {
@@ -114,14 +115,20 @@ h3 {
     font-style: normal;
     font-weight: 400;
     line-height: 20px;
-    /* 31.25% */
     letter-spacing: -0.23px;
 }
 
 .drag_and_drop {
-    width: 1074px;
-    height: 212px;
+    display: flex;
+    flex-direction: column;
     flex-shrink: 0;
+}
+
+.drag_and_drop svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 
 .drag_and_drop svg:hover {
@@ -134,12 +141,10 @@ h3 {
     display: flex;
     width: 156px;
     height: 38px;
-    padding: 4px 10px;
     justify-content: center;
     align-items: center;
-    gap: 3px;
     flex-shrink: 0;
-
     border-radius: 7px;
     background: var(--Colors-Blue, #007AFF);
+    margin-left: auto;
 }
