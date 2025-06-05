@@ -29,13 +29,13 @@ def init_supabase(app):
     # except Exception as e:
     #     print(f"Failed to connect: {e}")
 
-    insecure_httpx_client = httpx.Client(verify="C:/Users/rasanh.ou/Documents/plane_app/app/static")
+    # insecure_httpx_client = httpx.Client(verify="C:/Users/rasanh.ou/Documents/plane_app/app/static")
 
     # Initialize Supabase client
     supabase = create_client(url, key)
 
     # Inject insecure client to bypass SSL verification errors
-    supabase._client = insecure_httpx_client
+    # supabase._client = insecure_httpx_client
 
     # Attach to app
     app.supabase = supabase

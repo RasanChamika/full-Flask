@@ -4,84 +4,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plans and Rates</title>
-    <link type="image/x-icon"
-        href="https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/icon.svg"
-        rel="shortcut icon">
-    <link rel="stylesheet" href="../static/Styles/plan_form.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+    <link rel="stylesheet" href="/static/Styles/plan_form.css">
+    <title>Plan Form</title>
 </head>
 
 <body>
     <div class="svg1">
 
-        <div class="container">
-            <div class="form_container">
+        <div class="title_section" id="title_section">
+            <h1>Plan Form</h1>
+        </div>
+        <div class="form_container" id="form_container">
+            <form class="table_form">
+                <table>
+                    <tr>
+                        <td>
+                            <label for="plan_name">Plan Name:</label>
+                        </td>
+                        <td>
+                            <label for="plan_price">Plan Price:</label>
+                        </td>
 
-                <form class="add-plan-form" id="planform" enctype="multipart/form-data">
-                    <h1>Plan Form</h1>
-                    <div class="input_section">
-                        <input type="text" id="plan_name" name="plan_name" placeholder="Plan Title" required>
-                        <textarea id="plan_discription" name="plan_discription" rows="4" cols="50"
-                            placeholder="Enter your plan discription here..."></textarea>
-                        <input type="text" id="plan_image_url" name="plan_image_url" placeholder="Plan Image URL"
-                            required>
-                        <input type="text" id="sub_input" name="plan_subtitles[]" placeholder="Plan Subtitles" required>
-                        <div class="subtitle_container" id="subtitle_container">
-                        </div>
-                        <button type="button" id="add_subtitle">Add Subtitle</button>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" id="plan_name" name="plan_name" readonly>
+                        </td>
+                        <td>
+                            <input type="text" id="plan_price" name="plan_price" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label for="plan_description">Plan Description:</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <textarea id="plan_description" name="plan_description" rows="4" cols="50"
+                                readonly></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label for="plan_image_url">Plan Image URL:</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="text" id="plan_img_url" name="plan_image_url" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <legend> Plan Subtitle: </legend>
+                        </td>
+                        <td>
+                            <button type="button" id="add_subtitle">Add Subtitle</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
 
-                    </div>
-                    <div class="select_section">
-                        <div class="select_dtn" id="select_dtn">
-                            <label class="selective_area" id="selective_area">
-                                <input type="checkbox" class="selective-checkbox" id="selective-checkbox">
-                            </label>
-                            <span class="btn_title">Select Title</span>
-                            <span class="btn_arrow">
-                                <i class="fa-solid fa-angle-down"></i>
-                            </span>
-                        </div>
-                        <div class="select_container">
-                            <ul class="selection_list" id="selection_list">
-                                <li class="selection_item">
-                                    <input type="checkbox" id="plan_type1" name="role" value="Intern"
-                                        onchange="handleCheckbox(this)">
-                                    <label for="plan_type1">Intern</label>
-                                </li>
-                                <li class="selection_item">
-                                    <input type="checkbox" id="plan_type2" name="role" value="Tech Lead"
-                                        onchange="handleCheckbox(this)">
-                                    <label for="plan_type2">Tech Lead</label>
-                                </li>
-                                <li class="selection_item">
-                                    <input type="checkbox" id="plan_type3" name="role" value="architech"
-                                        onchange="handleCheckbox(this)">
-                                    <label for="plan_type3">architech</label>
-                                </li>
-                                <li class="selection_item">
-                                    <input type="checkbox" id="plan_type4" name="role" value="Senior"
-                                        onchange="handleCheckbox(this)">
-                                    <label for="plan_type4">Senior</label>
-                                </li>
-                                <li class="selection_item">
-                                    <input type="checkbox" id="plan_type5" name="role" value="Head"
-                                        onchange="handleCheckbox(this)">
-                                    <label for="plan_type5">Head</label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <input type="file" id="plan_image" name="plan_file" required>
-                    <button id="submitButton" type="submit">Submit</button>
+                        </td>
+                        <td style="text-align: right;">
+                            <button type="submit" id="submit_button">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <table class="plan_review_table" id="plan_review_table"
+                style="border-collapse: collapse; max-width: 80%; table-layout: fixed;">
+                <tr>
+                    <td>Plan Type: Prepaid</td>
+                    <td id="plan_review_name">Plan Name: </td>
+                    <td id="plan_review_display_price">Plan Price: </td>
+                </tr>
+                <tr>
+                    <td colspan="3" id="plan_review_description">
+                        Plan Description :
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="form_container2" id="form_container2" style="position: absolute; display: none;">
+            <form class="table_form" id="table_form2">
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            <label for="plan_subtitle">Plan Subtitle: </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="text" id="plan_subtitle" name="plan_subtitle" placeholder="Plan Subtitle :">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <leagend>Plan Details:</legend>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" id="price_with_tax" name="details[]" placeholder="Price with tax :">
+                        </td>
+                        <td>
+                            <input type="text" id="voice" name="details[]" placeholder="Voice any net :">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" id="sms" name="details[]" placeholder="SMS any net :">
+                        </td>
+                        <td>
+                            <input type="text" id="data" name="details[]" placeholder="Any time data :">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <leagend>Validity:</legend>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="text" id="reference_no" name="reference_no" placeholder="TRC Reference No :">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" id="cormmencing_date" name="cormmencing_date"
+                                placeholder="Commencing Data :">
+                        </td>
+                        <td>
+                            <input type="text" id="expiry_date" name="expiry_date" placeholder="Expiry Data :">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
 
-                </form>
-            </div>
+                        </td>
+                        <td>
+                            <button type="button" id="add_plan">Add Plan</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </div>
     </div>
-    <script src="../static/Scripts/plan_form.js"></script>
+    <script src="../static/scripts/plan_form.js"></script>
 </body>
-
 
 </html>
