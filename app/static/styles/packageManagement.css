@@ -8,6 +8,10 @@ body {
 }
 
 .svg1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-image: url("https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/bg_pattern.png");
     background-size: cover;
     background-attachment: fixed;
@@ -22,6 +26,10 @@ body {
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-width: 1000px;
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -73,14 +81,16 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    gap: 10px;
+    gap: 20px;
     margin-left: 100px;
     width: 200px;
     height: 40px;
     flex-shrink: 0;
     border: none;
-    border-radius: 34px;    
+    border-radius: 20px;    
     background: #51B848;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
 
@@ -88,15 +98,16 @@ body {
 .form_fill_container button:hover {
     transform: scale(1.01);
     background: #2da922;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
     transition: transform 0.1s ease-in-out;
 }
 .form_fill_container button:hover span{
-    transform: scale(1.01);
-    transition: transform 0.1s ease-in-out;
+    transform: scale(1.1);
     color: #fff;
+    transition: transform 0.1s ease-in-out;
 }
 .form_fill_container button:hover svg{
-    transform: scale(1.01);
+    transform: scale(1.3);
     transition: transform 0.1s ease-in-out;
     fill: #fff;
 }
@@ -160,6 +171,14 @@ h3 {
     align-items: center;
     flex-shrink: 0;
     border-radius: 7px;
+    font-size: 18px;
     background: var(--Colors-Blue, #007AFF);
     margin-left: auto;
+}
+
+.drag_and_drop_label:hover {
+    transform: scale(1.01);
+    background: var(--Colors-BlueHover, #005BB5);
+    transition: background-color 0.1s ease-in-out;
+    color: #fff;
 }
