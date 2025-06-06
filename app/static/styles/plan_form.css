@@ -43,6 +43,10 @@ body {
     gap: 30px;
 }
 
+.table_form input[value="none"]:invalid{
+    border: red solid;
+}
+
 /* Form Style */
 .table_form table {
     font-size: 18px;

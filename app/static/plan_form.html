@@ -88,7 +88,7 @@
             </table>
         </div>
         <div class="form_container2" id="form_container2" style="position: absolute; display: none;">
-            <form class="table_form" id="table_form2">
+            <form class="table_form" id="table_form2" method="post" autocomplete="on">
                 <table>
                     <tr>
                         <td colspan="2">
@@ -97,7 +97,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="text" id="plan_subtitle" name="plan_subtitle" placeholder="Plan Subtitle :">
+                            <input type="text" id="plan_subtitle" name="plan_subtitle" placeholder="Plan Subtitle :" required>
                         </td>
                     </tr>
                     <tr>
@@ -145,7 +145,7 @@
 
                         </td>
                         <td>
-                            <button type="button" id="add_plan">Add Plan</button>
+                            <button type="submit" id="add_plan">Add Plan</button>
                         </td>
                     </tr>
                 </table>
