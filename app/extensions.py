@@ -4,12 +4,18 @@ import psycopg2
 import os
 import httpx
 import supabase
+import certifi
+import urllib3
 
 
 
 mysql = MySQL()
 
 def init_supabase(app):
+
+    urllib3.disable_warnings()
+
+    os.environ["CURL_CA_BUNDLE"] = ""
 
     url = app.config["SUPABASE_URL"]
     key = app.config["SUPABASE_KEY"]
@@ -31,8 +37,11 @@ def init_supabase(app):
 
     # insecure_httpx_client = httpx.Client(verify="C:/Users/rasanh.ou/Documents/plane_app/app/static")
 
+    # client_options = {"verify": False}
+    # httpx_client = httpx.Client(verify=False)
+
     # Initialize Supabase client
-    supabase = create_client(url, key)
+    supabase: Client = create_client(url, key)
 
     # Inject insecure client to bypass SSL verification errors
     # supabase._client = insecure_httpx_client

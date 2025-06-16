@@ -7,14 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
         { element: document.getElementById("plan_img_url"), label: "Image URL :" }
     ];
 
-    editableElements.forEach(({ element, label }) => {
+    editableElements.forEach(({ element, label }) => {  
         element.addEventListener("click", () => {
             new popup(element, label);
         });
     });
 
     document.getElementById("add_subtitle").addEventListener("click", () => {
-        showDetailPopUp();
+        new detailPopup();
     });
 
     const inputValues = [
@@ -166,7 +166,6 @@ class popup {
         this.saveButton.style.color = "black";
         this.saveButton.style.cursor = "pointer";
 
-
         this.inputWrapper.appendChild(this.removeImage);
         this.inputWrapper.appendChild(this.saveButton);
         document.body.appendChild(this.inputWrapper);
@@ -220,191 +219,193 @@ class popup {
 
 }
 
+class detailPopup {
+    constructor() {
 
-function showDetailPopUp() {
-    const detailContainer2 = document.getElementById("form_container2");
-    const form_container = document.getElementById("form_container");
-
-    document.getElementById("title_section").style.opacity = "0.5";
-    document.getElementById("title_section").style.transition = "0.3s";
-
-    document.getElementById("title_section").style.opacity = "0.5";
-    document.getElementById("title_section").style.transition = "0.3s";
-
-    document.getElementById("form_container").style.opacity = "0.5";
-    document.getElementById("form_container").style.transition = "0.3s";
-
-    detailContainer2.style.background = "white";
-    detailContainer2.style.padding = "10px";
-    detailContainer2.style.border = "1px solid";
-    detailContainer2.style.borderRadius = "5px";
-    detailContainer2.style.top = "200px";
-    detailContainer2.style.left = "400px";
-    detailContainer2.style.width = "auto";
-    detailContainer2.style.height = "auto";
-    detailContainer2.style.overflow = "hidden";
-    detailContainer2.style.display = "block";
-
-    const removeImage2 = document.createElement("img");
-    removeImage2.classList.add("remove_icon2");
-    removeImage2.src = "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/close-line-svgrepo-com.svg";
-    removeImage2.alt = "Remove2";
-    removeImage2.style.width = "20px";
-    removeImage2.style.height = "20px";
-    removeImage2.style.cursor = "pointer";
-    removeImage2.style.position = "absolute";
-    removeImage2.style.top = "0";
-    removeImage2.style.right = "0";
-    detailContainer2.appendChild(removeImage2);
-
-    detailContainer2.addEventListener("click", (event) => {
-        if (!event.currentTarget.contains(event.target)) {
-            closeDetailsPopup();
-        }
-    });
-
-    setTimeout(() => {
-        document.addEventListener("click", handleOutsideClick);
-    }, 0);
-
-    function handleOutsideClick(event) {
-        if (!detailContainer2.contains(event.target)) {
-            closeDetailsPopup();
-        }
-    }
-
-    function closeDetailsPopup() {
         const detailContainer2 = document.getElementById("form_container2");
-        if (detailContainer2) detailContainer2.style.display = "none";
 
-        document.getElementById("title_section").style.opacity = "1";
-        document.getElementById("title_section").style.transition = "0.3s";
+        const titleSection = document.getElementById("title_section");
+        titleSection.style.opacity = "0.5";
+        titleSection.style.transition = "0.3s";
 
-        document.getElementById("form_container").style.opacity = "1";
-        document.getElementById("form_container").style.transition = "0.3s";
+        titleSection.style.opacity = "0.5";
+        titleSection.style.transition = "0.3s";
 
-        document.removeEventListener("click", handleOutsideClick);
+        const fromContainer = document.getElementById("form_container");
+        fromContainer.style.opacity = "0.5";
+        fromContainer.style.transition = "0.3s";
+
+        detailContainer2.style.background = "white";
+        detailContainer2.style.padding = "10px";
+        detailContainer2.style.border = "1px solid";
+        detailContainer2.style.borderRadius = "5px";
+        detailContainer2.style.top = "200px";
+        detailContainer2.style.left = "400px";
+        detailContainer2.style.width = "auto";
+        detailContainer2.style.height = "auto";
+        detailContainer2.style.overflow = "hidden";
+        detailContainer2.style.display = "block";
+
+        this.removeImage2 = document.createElement("img");
+        this.removeImage2.classList.add("remove_icon2");
+        this.removeImage2.src = "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/close-line-svgrepo-com.svg";
+        this.removeImage2.alt = "Remove2";
+        this.removeImage2.style.width = "20px";
+        this.removeImage2.style.height = "20px";
+        this.removeImage2.style.cursor = "pointer";
+        this.removeImage2.style.position = "absolute";
+        this.removeImage2.style.top = "0";
+        this.removeImage2.style.right = "0";
+        detailContainer2.appendChild(this.removeImage2);
+
+        this.handleOutsideClick = (event) => {
+            if ((!detailContainer2.contains(event.target))){
+                this.close(detailContainer2);
+            }
+        }
+
+        setTimeout(() => {
+            document.addEventListener("click", this.handleOutsideClick);
+        },0);
+
+        this.removeImage2.addEventListener("click", () => this.close(detailContainer2));
+
+        document.getElementById("add_plan").addEventListener("click", (event) => {
+        /* event.preventDefault(); */
+        const data = reviewManager.getReviewData();
+        reviewManager.renderReviewTable(data);
+        reviewManager.resetForm();
+        });
         
     }
 
-    document.getElementById("add_plan").addEventListener("click", (event) => {
-        event.preventDefault();
-        const { details, trcData, subData } = updatePlanReviewDetailsUpdate();
-        clearForms();
-        detailReview(details, trcData, subData);
-        closeDetailsPopup();
-    });
-    
+    close(container) {
+        container.style.display = "none";
+
+        const titleSection = document.getElementById("title_section");
+        const fromContainer = document.getElementById("form_container");
+
+        titleSection.style.opacity = "1";
+        titleSection.style.transition = "0.3s";
+
+        fromContainer.style.opacity = "1";
+        fromContainer.style.transition = "0.3s";
+
+        document.removeEventListener("click", this.handleOutsideClick);
+    }
 }
 
-const subtitleData = {
-    plan_subtitle: "none"
-};
+class planStore {
+    constructor() {
+        this.plan = [];
+    }
 
+    add(data) {
+        this.plan.push(data);
+    }
 
-const reviewData = {
-    price_with_tax: "none",
-    voice: "none",
-    sms: "none",
-    data: "none"
-};
+    clear() {
+        this.plan.length = 0;
+    }
 
-const reviewtrcData = {
-    reference_no: "none",
-    cormmencing_date: "none",
-    expiry_date: "none"
+    getAll() {
+        return this.plan;
+    }
 }
 
-const Plan = []
+
+
+class planReviewManager {
+    constructor() {
+        this.subtitleData = {plan_subtitle: "none"};
+        this.reviewData = {
+            price_with_tax: "none",
+            voice: "none",
+            sms: "none",
+            data: "none"
+        };
+        this.reviewtrcData = {
+            reference_no: "none",
+            cormmencing_date: "none",
+            expiry_date: "none"
+        };
+        this.planstore = new planStore();
+    }
+
+    updateFormInput(value, element) {
+        const id = element.id;
+
+        
+        if (id === "plan_name") {
+            document.getElementById("plan_review_name").innerHTML = `<b>Plan Name</b>: ${value}`;
+            this.planstore.add({Plan_name: value});
+        }else if (id === "plan_price") {
+            document.getElementById("plan_review_display_price").innerHTML = `<b>Plan Display price</b>: ${value}`
+            this.planstore.add({Plan_display_price: value});
+        }else if (id === "plan_description") {
+            document.getElementById("plan_review_description").innerHTML = `<b>Plan Description</b>: ${value}`
+            this.planstore.add({Plan_description: value});
+        }
+
+        if(id in this.subtitleData) this.subtitleData[id] = value;
+        if(id in this.reviewData) this.reviewData[id] = value;
+        if(id in this.reviewtrcData) this.reviewtrcData[id] = value;
+    }
+
+    getReviewData() {
+        const details = [];
+        const trcData = [];
+        const subData = [];
+
+        if(this.subtitleData.plan_subtitle) subData.push(`<b>Plan Subtitle</b>: ${this.subtitleData.plan_subtitle}`);
+        if(this.reviewData.price_with_tax) details.push(`<b>Price with TAX</b>: ${this.reviewData.price_with_tax}`);
+        if(this.reviewData.voice) details.push(`<b>Voice Any Net</b>: ${this.reviewData.voice}`);
+        if(this.reviewData.sms) details.push(`<b>SMS Any Net</b>: ${this.reviewData.sms}`);
+        if(this.reviewData.data) details.push(`<b>Any Time Data</b>: ${this.reviewData.data}`);
+        if(this.reviewtrcData.reference_no) trcData.push(`<b>TRC Reference Number</b>: ${this.reviewtrcData.reference_no}`);
+        if(this.reviewtrcData.cormmencing_date) trcData.push(`<b>Commencing Data</b>: ${this.reviewtrcData.cormmencing_date}`);
+        if(this.reviewtrcData.expiry_date) trcData.push(`<b>Expiry Data</b>: ${this.reviewtrcData.expiry_date}`);
+
+        this.planstore.add({subData, details, trcData});
+
+        console.log(this.planstore);
+
+        return {details, trcData, subData};
+    }
+
+    renderReviewTable({details, trcData, subData}) {
+        const reviewTable = document.getElementById("plan_review_table");
+
+        const review_subtitle = document.createElement("tr");
+
+        const reviewSubtitle = document.createElement("td");
+        reviewSubtitle.id = "plan_review_subtitle";
+        reviewSubtitle.innerHTML = subData.join("<br>");
+        review_subtitle.appendChild(reviewSubtitle);
+
+        const reviewdetails = document.createElement("td");
+        reviewdetails.id = "plan_review_details";
+        reviewdetails.innerHTML = details.join("<br>");
+        review_subtitle.appendChild(reviewdetails);
+
+        const reviewTrc = document.createElement("td");
+        reviewTrc.id = "plan_review_trcdetails";
+        reviewTrc.innerHTML = trcData.join("<br>");
+        review_subtitle.appendChild(reviewTrc);
+
+        reviewTable.appendChild(review_subtitle);
+    }
+
+    resetForm() {
+        document.querySelector("#table_form2").reset();
+    }
+}
+
+const reviewManager = new planReviewManager();
 
 function review_plan_form(value, element) {
 
-    if (element.id === "plan_name") {
-        document.getElementById("plan_review_name").innerHTML = `<b>Plan Name</b>: ${value}`;
-    }
-
-    if (element.id === "plan_price") {
-        document.getElementById("plan_review_display_price").innerHTML = `<b>Plan Display price</b>: ${value}`
-    }
-
-    if (element.id === "plan_description") {
-        document.getElementById("plan_review_description").innerHTML = `<b>Plan Description</b>: ${value}`
-    }
-
-    if (element.id in reviewData) {
-        reviewData[element.id] = value;
-    }
-    if (element.id in reviewtrcData) {
-        reviewtrcData[element.id] = value;
-    }
-    if (element.id in subtitleData) {
-        subtitleData[element.id] = value;
-    }
+    reviewManager.updateFormInput(value, element);
 
 }
 
-
-const details = [];
-const trcData = [];
-const subData = [];
-
-function updatePlanReviewDetailsUpdate() {
-
-
-    if (subtitleData.plan_subtitle) subData.push(`<b>Plan Subtitle</b>: ${subtitleData.plan_subtitle}`);
-
-    if (reviewData.price_with_tax) details.push(`<b>Price with TAX</b>: ${reviewData.price_with_tax}`);
-    if (reviewData.voice) details.push(`<b>Voice Any Net</b>: ${reviewData.voice}`);
-    if (reviewData.sms) details.push(`<b>SMS Any Net</b>: ${reviewData.sms}`);
-    if (reviewData.data) details.push(`<b>Any Time Data</b>: ${reviewData.data}`);
-
-    if (reviewtrcData.reference_no) trcData.push(`<b>TRC Reference Number</b>: ${reviewtrcData.reference_no}`);
-    if (reviewtrcData.cormmencing_date) trcData.push(`<b>Commencing Data</b>: ${reviewtrcData.cormmencing_date}`);
-    if (reviewtrcData.expiry_date) trcData.push(`<b>Expiry Data</b>: ${reviewtrcData.expiry_date}`);
-
-    console.log(details);
-    console.log(trcData);
-    console.log(subData);
-
-    return { details, trcData, subData };
-}
-
-function detailReview(details, trcData, subData) {
-
-
-    const reviewTable = document.getElementById("plan_review_table");
-
-
-    const review_subtitle = document.createElement("tr");
-    review_subtitle.innerHTML = "";
-
-    const reviewSubtitle = document.createElement("td");
-    reviewSubtitle.id = "plan_review_subtitle";
-    reviewSubtitle.innerHTML = subData.join("<br>");
-    review_subtitle.appendChild(reviewSubtitle);
-
-    const reviewdetails = document.createElement("td");
-    reviewdetails.id = "plan_review_details";
-    reviewdetails.innerHTML = details.join("<br>");
-    review_subtitle.appendChild(reviewdetails);
-
-    const reviewTrc = document.createElement("td");
-    reviewTrc.id = "plan_review_trcdetails";
-    reviewTrc.innerHTML = trcData.join("<br>");
-    review_subtitle.appendChild(reviewTrc);
- 
-
-    details.length = 0;
-    trcData.length = 0;
-    subData.length = 0;
-
-    console.log(Plan);
-
-    reviewTable.appendChild(review_subtitle);
-
-}
-
-function clearForms() {
-    const form = document.querySelector("#table_form2");
-    form.reset();
-}

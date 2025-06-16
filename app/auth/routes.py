@@ -67,23 +67,26 @@ def login():
           if login_form.validate_on_submit():
                print("Form validation successful")
                print(f"DEBUG: received JSON = {login_form.email.data} ({type(login_form.email.data)})")
-               email = login_form.email.data
-               password = login_form.password.data
-               confrim_password = login_form.confirm_password.data
-               remember = login_form.remember.data    
+               form_email = login_form.email.data
+               form_password = login_form.password.data
+               form_confrim_password = login_form.confirm_password.data
+               form_remember = login_form.remember.data 
 
-               success, respons = check_employee_and_user(email)
+               email = {"email": form_email}
+               print(f"DEBUG: received JSON = {email} ({type(email)})")
+
+               success, respons = check_employee_and_user(email['email'])
                print(f"DEBUG: received JSON = {respons} ({type(respons)})")
                print(f"DEBUG: received JSON = {success} ({type(success)})")
                if success == False:
                     if respons['message'] == 'User already exists.':
                          try:
-                              password_resp = supabase.table("users").select('*').eq('userEmail', email).execute()
+                              password_resp = supabase.table("users").select('*').eq('userEmail', email['email']).execute()
                               if password_resp.data and len(password_resp.data) > 0:
                                    userpassword = password_resp.data[0]['userPassword']
-                                   if check_password_hash(userpassword, password):
+                                   if check_password_hash(userpassword, form_password):
                                         print("Login successful")
-                                        session['user'] = email
+                                        session['user'] = email['email']
                                         session['userName'] = password_resp.data[0]['userName']
                                         print(f"DEBUG: received JSON = {session['user']} ({type(session['user'])})")
                                         return redirect(url_for('auth.dashboard'))
@@ -100,13 +103,13 @@ def login():
                          employee_name = respons['employee_name']
 
                          data = [{"userName": employee_name,
-                                   "userEmail": email,
-                                   "userPassword": generate_password_hash(confrim_password)}]
+                                   "userEmail": email['email'],
+                                   "userPassword": generate_password_hash(form_confrim_password)}]
                          try:
                               add_user_resp = supabase.table("users").insert(data).execute()
                               print(f"User registered successfully, response: {add_user_resp}")
                               if add_user_resp.data and len(add_user_resp.data) > 0:
-                                   session['user'] = email
+                                   session['user'] = email['email']
                                    session['userName'] = employee_name
                                    return redirect(url_for('auth.dashboard'))
                               else:

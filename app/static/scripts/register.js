@@ -180,6 +180,8 @@ function applyFormStyles() {
 
 function employeeCheck(email) {
 
+    let confirmPassword = document.getElementById("cof_password");
+    let newPassword = document.getElementById("password");
     /*    let email = document.getElementById("email").value; */
 
     fetch("/auth/employee_register", {
@@ -194,9 +196,7 @@ function employeeCheck(email) {
         .then(response => response.json())
         .then(data => {
             if (data.message === "Only employee exists.") {
-                if (document.getElementById("cof_password").style.display === "none") {
-                    let confirmPassword = document.getElementById("cof_password");
-                    let newPassword = document.getElementById("password");
+                if (confirmPassword.style.display === "none") {
                     newPassword.placeholder = "New Password";
 
                     confirmPassword.style.display = "block";
@@ -216,8 +216,7 @@ function employeeCheck(email) {
                     }, 10);
                 }
             } else if (data.message === "User already exists." || data.message === "Employee exists.") {
-                if (document.getElementById("cof_password").style.display === "block") {
-                    let confirmPassword = document.getElementById("cof_password");
+                if (confirmPassword.style.display === "block") {
                     confirmPassword.style.display = "none";
 
                     let password = document.getElementById("password");
@@ -225,4 +224,12 @@ function employeeCheck(email) {
                 }
             }
         })
+}
+
+function login(email) {
+
+    fetch("/auth/login", {
+        method: "POST",
+        body: FormData
+    } );
 }
