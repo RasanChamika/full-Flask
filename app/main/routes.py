@@ -1,4 +1,3 @@
-from pydoc import plain
 from flask import Blueprint, request, jsonify, session, url_for, render_template,current_app, redirect
 from app.extensions import mysql,init_supabase
 from app.auth.forms import RegisterForm, LoginForm

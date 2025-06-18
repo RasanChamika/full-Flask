@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         employeeCheck(this.value)
     });
 
+
     // Event listener for Show Login button
     document.getElementById("showLogin").addEventListener("click", function () {
 
@@ -218,18 +219,9 @@ function employeeCheck(email) {
             } else if (data.message === "User already exists." || data.message === "Employee exists.") {
                 if (confirmPassword.style.display === "block") {
                     confirmPassword.style.display = "none";
-
                     let password = document.getElementById("password");
                     password.placeholder = "Password";
                 }
             }
         })
-}
-
-function login(email) {
-
-    fetch("/auth/login", {
-        method: "POST",
-        body: FormData
-    } );
 }

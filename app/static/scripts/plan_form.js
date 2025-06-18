@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
             review_plan_form(element.value, element);
         });
     });
-
 });
 
 class popup {
@@ -86,7 +85,6 @@ class popup {
         }else if (element.id === "plan_description") {
             this.descriptionPop = document.createElement("textarea");
             this.descriptionPop.name = "plan_description";
-            this.descriptionPop.setAttribute("for", element.id);
             this.descriptionPop.id = "plan_input_textarea";
             this.descriptionPop.style.display = "flex";
             this.descriptionPop.style.width = "300px";
@@ -207,7 +205,6 @@ class popup {
 
     close() {
         this.inputWrapper.remove();
-        document.removeEventListener("click", this.handleOutsideClick);
 
         document.getElementById("title_section").style.opacity = "1";
         document.getElementById("title_section").style.transition = "0.3s";
@@ -216,13 +213,34 @@ class popup {
         document.getElementById("form_container").style.transition = "0.3s";
     }
 
+}
 
+class planStore {
+    constructor() {
+        this.plan = [];
+    }
+
+    add(data) {
+        this.plan.push(data);
+        console.log(this.plan);
+    }
+
+    clear() {
+        this.plan.length = 0;
+    }
+
+    getAll() {
+        return this.plan;
+    }
 }
 
 class detailPopup {
     constructor() {
 
         const detailContainer2 = document.getElementById("form_container2");
+        this.addButton = document.getElementById("add_plan");
+
+        this.renderReviewsBound = this.renderReviews.bind(this);
 
         const titleSection = document.getElementById("title_section");
         titleSection.style.opacity = "0.5";
@@ -230,11 +248,11 @@ class detailPopup {
 
         titleSection.style.opacity = "0.5";
         titleSection.style.transition = "0.3s";
-
+        
         const fromContainer = document.getElementById("form_container");
         fromContainer.style.opacity = "0.5";
         fromContainer.style.transition = "0.3s";
-
+        
         detailContainer2.style.background = "white";
         detailContainer2.style.padding = "10px";
         detailContainer2.style.border = "1px solid";
@@ -245,7 +263,7 @@ class detailPopup {
         detailContainer2.style.height = "auto";
         detailContainer2.style.overflow = "hidden";
         detailContainer2.style.display = "block";
-
+        
         this.removeImage2 = document.createElement("img");
         this.removeImage2.classList.add("remove_icon2");
         this.removeImage2.src = "https://jnrcnizvaihqtkeynkjk.supabase.co/storage/v1/object/public/webimages/icons/close-line-svgrepo-com.svg";
@@ -257,28 +275,35 @@ class detailPopup {
         this.removeImage2.style.top = "0";
         this.removeImage2.style.right = "0";
         detailContainer2.appendChild(this.removeImage2);
-
+        
         this.handleOutsideClick = (event) => {
             if ((!detailContainer2.contains(event.target))){
                 this.close(detailContainer2);
             }
         }
-
+        
         setTimeout(() => {
             document.addEventListener("click", this.handleOutsideClick);
         },0);
 
         this.removeImage2.addEventListener("click", () => this.close(detailContainer2));
 
-        document.getElementById("add_plan").addEventListener("click", (event) => {
-        /* event.preventDefault(); */
+        setTimeout(() => {
+
+            this.addButton.addEventListener("click", this.renderReviewsBound);
+        },0);
+
+    }
+
+    renderReviews() {
         const data = reviewManager.getReviewData();
         reviewManager.renderReviewTable(data);
         reviewManager.resetForm();
-        });
-        
-    }
 
+        this.addButton.removeEventListener("click", this.renderReviewsBound);
+    }
+    const reviewManager = new planReviewManager();
+    
     close(container) {
         container.style.display = "none";
 
@@ -291,25 +316,17 @@ class detailPopup {
         fromContainer.style.opacity = "1";
         fromContainer.style.transition = "0.3s";
 
-        document.removeEventListener("click", this.handleOutsideClick);
-    }
-}
+/*         const inputs = document.querySelectorAll("input, textarea, select");
+        inputs.forEach(input => input.value = ""); */
 
-class planStore {
-    constructor() {
-        this.plan = [];
-    }
+        document.getElementById("table_form2").reset();
 
-    add(data) {
-        this.plan.push(data);
-    }
 
-    clear() {
-        this.plan.length = 0;
-    }
 
-    getAll() {
-        return this.plan;
+        setTimeout(() => {
+            document.removeEventListener("click", this.handleOutsideClick);
+            this.addButton.removeEventListener("click", this.renderReviewsBound);
+        },0);
     }
 }
 
@@ -329,6 +346,8 @@ class planReviewManager {
             cormmencing_date: "none",
             expiry_date: "none"
         };
+
+        console.log({subtitle: this.subtitleData, data: this.reviewData, trcData: this.reviewtrcData})
         this.planstore = new planStore();
     }
 
@@ -350,27 +369,29 @@ class planReviewManager {
         if(id in this.subtitleData) this.subtitleData[id] = value;
         if(id in this.reviewData) this.reviewData[id] = value;
         if(id in this.reviewtrcData) this.reviewtrcData[id] = value;
+
+
     }
 
     getReviewData() {
-        const details = [];
-        const trcData = [];
-        const subData = [];
+        this.details = [];
+        this.trcData = [];
+        this.subData = [];
 
-        if(this.subtitleData.plan_subtitle) subData.push(`<b>Plan Subtitle</b>: ${this.subtitleData.plan_subtitle}`);
-        if(this.reviewData.price_with_tax) details.push(`<b>Price with TAX</b>: ${this.reviewData.price_with_tax}`);
-        if(this.reviewData.voice) details.push(`<b>Voice Any Net</b>: ${this.reviewData.voice}`);
-        if(this.reviewData.sms) details.push(`<b>SMS Any Net</b>: ${this.reviewData.sms}`);
-        if(this.reviewData.data) details.push(`<b>Any Time Data</b>: ${this.reviewData.data}`);
-        if(this.reviewtrcData.reference_no) trcData.push(`<b>TRC Reference Number</b>: ${this.reviewtrcData.reference_no}`);
-        if(this.reviewtrcData.cormmencing_date) trcData.push(`<b>Commencing Data</b>: ${this.reviewtrcData.cormmencing_date}`);
-        if(this.reviewtrcData.expiry_date) trcData.push(`<b>Expiry Data</b>: ${this.reviewtrcData.expiry_date}`);
+        if(this.subtitleData.plan_subtitle) this.subData.push(`<b>Plan Subtitle</b>: ${this.subtitleData.plan_subtitle}`);
+        if(this.reviewData.price_with_tax) this.details.push(`<b>Price with TAX</b>: ${this.reviewData.price_with_tax}`);
+        if(this.reviewData.voice) this.details.push(`<b>Voice Any Net</b>: ${this.reviewData.voice}`);
+        if(this.reviewData.sms) this.details.push(`<b>SMS Any Net</b>: ${this.reviewData.sms}`);
+        if(this.reviewData.data) this.details.push(`<b>Any Time Data</b>: ${this.reviewData.data}`);
+        if(this.reviewtrcData.reference_no) this.trcData.push(`<b>TRC Reference Number</b>: ${this.reviewtrcData.reference_no}`);
+        if(this.reviewtrcData.cormmencing_date) this.trcData.push(`<b>Commencing Data</b>: ${this.reviewtrcData.cormmencing_date}`);
+        if(this.reviewtrcData.expiry_date) this.trcData.push(`<b>Expiry Data</b>: ${this.reviewtrcData.expiry_date}`);
 
-        this.planstore.add({subData, details, trcData});
+        this.planstore.add({subData: this.subData, details: this.details, trcData:this.trcData});
 
         console.log(this.planstore);
 
-        return {details, trcData, subData};
+        return {details: this.details, trcData: this.trcData, subData: this.subData};
     }
 
     renderReviewTable({details, trcData, subData}) {
@@ -380,7 +401,7 @@ class planReviewManager {
 
         const reviewSubtitle = document.createElement("td");
         reviewSubtitle.id = "plan_review_subtitle";
-        reviewSubtitle.innerHTML = subData.join("<br>");
+        reviewSubtitle.innerHTML = subData.join("<br>"); 
         review_subtitle.appendChild(reviewSubtitle);
 
         const reviewdetails = document.createElement("td");
@@ -398,14 +419,16 @@ class planReviewManager {
 
     resetForm() {
         document.querySelector("#table_form2").reset();
+
     }
 }
 
-const reviewManager = new planReviewManager();
 
 function review_plan_form(value, element) {
+    
+    
+    console.log(value);
 
     reviewManager.updateFormInput(value, element);
 
 }
-
