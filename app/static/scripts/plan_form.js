@@ -359,7 +359,6 @@ class planReviewManager {
 
     updateFormInput(value, element) {
         const id = element.id;
-
         
         if (id === "plan_name") {
             document.getElementById("plan_review_name").innerHTML = `<b>Plan Name</b>: ${value}`;
@@ -375,7 +374,6 @@ class planReviewManager {
         if(id in this.subtitleData) this.subtitleData[id] = value;
         if(id in this.reviewData) this.reviewData[id] = value;
         if(id in this.reviewtrcData) this.reviewtrcData[id] = value;
-
 
     }
 
@@ -430,7 +428,6 @@ class planReviewManager {
 }
 
 const reviewManager = new planReviewManager();
-
 
 function review_plan_form(value, element) {
     
