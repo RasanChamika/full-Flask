@@ -235,6 +235,9 @@ class planStore {
 }
 
 class detailPopup {
+
+    static isListenerAdded = false;
+
     constructor() {
 
         const detailContainer2 = document.getElementById("form_container2");
@@ -253,6 +256,9 @@ class detailPopup {
         fromContainer.style.opacity = "0.5";
         fromContainer.style.transition = "0.3s";
         
+        detailContainer2.style.opacity = 1;
+        detailContainer2.style.position = "absolute";
+        detailContainer2.style.pointerEvents = "auto";
         detailContainer2.style.background = "white";
         detailContainer2.style.padding = "10px";
         detailContainer2.style.border = "1px solid";
@@ -262,6 +268,7 @@ class detailPopup {
         detailContainer2.style.width = "auto";
         detailContainer2.style.height = "auto";
         detailContainer2.style.overflow = "hidden";
+        detailContainer2.style.visibility = "visible";
         detailContainer2.style.display = "block";
         
         this.removeImage2 = document.createElement("img");
@@ -288,10 +295,10 @@ class detailPopup {
 
         this.removeImage2.addEventListener("click", () => this.close(detailContainer2));
 
-        setTimeout(() => {
-
+         if (!detailPopup.isListenerAdded) {
             this.addButton.addEventListener("click", this.renderReviewsBound);
-        },0);
+            detailPopup.isListenerAdded = true;
+        }
 
     }
 
@@ -300,12 +307,18 @@ class detailPopup {
         reviewManager.renderReviewTable(data);
         reviewManager.resetForm();
 
+        const detailContainer2 = document.getElementById("form_container2");
+        this.close(detailContainer2);
+
         this.addButton.removeEventListener("click", this.renderReviewsBound);
+        detailPopup.isListenerAdded = false;
     }
-    const reviewManager = new planReviewManager();
+    
     
     close(container) {
-        container.style.display = "none";
+        container.style.visibility = "hidden";
+        container.style.opacity = 0;
+        container.style.pointerEvents = "none";
 
         const titleSection = document.getElementById("title_section");
         const fromContainer = document.getElementById("form_container");
@@ -316,12 +329,7 @@ class detailPopup {
         fromContainer.style.opacity = "1";
         fromContainer.style.transition = "0.3s";
 
-/*         const inputs = document.querySelectorAll("input, textarea, select");
-        inputs.forEach(input => input.value = ""); */
-
         document.getElementById("table_form2").reset();
-
-
 
         setTimeout(() => {
             document.removeEventListener("click", this.handleOutsideClick);
@@ -329,8 +337,6 @@ class detailPopup {
         },0);
     }
 }
-
-
 
 class planReviewManager {
     constructor() {
@@ -423,9 +429,10 @@ class planReviewManager {
     }
 }
 
+const reviewManager = new planReviewManager();
+
 
 function review_plan_form(value, element) {
-    
     
     console.log(value);
 
